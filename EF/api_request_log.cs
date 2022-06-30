@@ -7,26 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace accAfpslaiEmvSrvc
+namespace accAfpslaiEmvSrvc.EF
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class system_user
+    public partial class api_request_log
     {
         public int id { get; set; }
-        public string user_name { get; set; }
-        public string user_pass { get; set; }
-        public string last_name { get; set; }
-        public string first_name { get; set; }
-        public string middle_name { get; set; }
-        public string suffix { get; set; }
-        public Nullable<int> role_id { get; set; }
-        public string status { get; set; }
-        public Nullable<bool> is_default_pass { get; set; }
-        public Nullable<bool> is_deleted { get; set; }
+        public string api_owner { get; set; }
+        public string api_name { get; set; }
+        public Nullable<int> member_id { get; set; }
+        public Nullable<int> card_id { get; set; }
+        public string request { get; set; }
+        public string response { get; set; }
+        public Nullable<bool> is_success { get; set; }
         public Nullable<System.DateTime> date_post { get; set; }
         public Nullable<System.TimeSpan> time_post { get; set; }
-        public Nullable<short> login_attmpt_ctr { get; set; }
     }
 }

@@ -7,15 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace accAfpslaiEmvSrvc
+namespace accAfpslaiEmvSrvc.EF
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class print_type
+    public partial class dcs_system_setting
     {
         public int id { get; set; }
-        public string printType { get; set; }
-        public Nullable<bool> is_deleted { get; set; }
+        public Nullable<int> cif_length { get; set; }
+        public Nullable<int> member_type_assoc_allow_yrs { get; set; }
+        public Nullable<int> member_type_reg_allow_yrs { get; set; }
+        public Nullable<int> cardname_length { get; set; }
+        public string system_default_password { get; set; }
+        public Nullable<System.DateTime> last_updated { get; set; }
     }
 }

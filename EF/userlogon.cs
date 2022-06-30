@@ -7,16 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace accAfpslaiEmvSrvc
+namespace accAfpslaiEmvSrvc.EF
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class branch
+    public partial class userlogon
     {
         public int id { get; set; }
-        public string branchName { get; set; }
-        public string code { get; set; }
-        public Nullable<bool> is_deleted { get; set; }
+        public string user_name { get; set; }
+        public Nullable<System.DateTime> login_date { get; set; }
+        public Nullable<System.TimeSpan> login_time { get; set; }
+        public Nullable<System.DateTime> logout_date { get; set; }
+        public Nullable<System.TimeSpan> logout_time { get; set; }
+        public string system { get; set; }
     }
 }

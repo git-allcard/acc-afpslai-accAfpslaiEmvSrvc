@@ -41,8 +41,8 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                     if (string.IsNullOrEmpty(cif) && string.IsNullOrEmpty(reference_number)) return apiResponse(new responseFailedBadRequest { message = "Empty cif or reference numbber" });
                     else
-                    {
-                        afpslai_emvEntities ent = new afpslai_emvEntities();
+                    {                        
+                        accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
                         var obj = ent.online_registration.Where(o => (o.cif.Equals(cif)) || (o.reference_number.Equals(reference_number)));
 
                         var payloadAuthEncrypted = reqPayload.authentication;
@@ -85,7 +85,7 @@ namespace accAfpslaiEmvSrvc.Controllers
                     string msg = "";
                     cmsResponse cmsResponse = null;
 
-                    api_request_log arl = new api_request_log();
+                    accAfpslaiEmvSrvc.EF.api_request_log arl = new accAfpslaiEmvSrvc.EF.api_request_log();
                     arl.card_id = cbsCms.cardId;
                     arl.member_id = cbsCms.memberId;
                     arl.api_owner = "cms";
@@ -96,7 +96,7 @@ namespace accAfpslaiEmvSrvc.Controllers
                     //if (Helpers.Utilities.wiseCardcardBindCifNo_Test(cbsCms, ref cmsResponse, ref msg))
                     {
                         Helpers.Utilities.SavePayloadWithResponse(reqPayload, Newtonsoft.Json.JsonConvert.SerializeObject(cmsResponse),2);
-                        afpslai_emvEntities ent = new afpslai_emvEntities();
+                        accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
                         int cardId = cbsCms.cardId;
                         var card = ent.cards.Where(o => (o.id.Equals(cardId))).FirstOrDefault();
                         if (card != null)
@@ -255,7 +255,7 @@ namespace accAfpslaiEmvSrvc.Controllers
                     //string cif = payload.cif;
                     //string branchId = "000";
 
-                    //afpslai_emvEntities ent = new afpslai_emvEntities();
+                    //accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
                     //var b = ent.branches.Where(o => o.branchName.Equals(payload.branch)).FirstOrDefault();
 
                     //if (b != null) branchId = b.code;
@@ -272,7 +272,7 @@ namespace accAfpslaiEmvSrvc.Controllers
                     if (objPayload.cif != null) cif = objPayload.cif;
                     if (payloadAuth.branch != null) branch = payloadAuth.branch;
 
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     if (branchId == "000")
                     {                        
@@ -412,7 +412,7 @@ namespace accAfpslaiEmvSrvc.Controllers
                         }
                         else
                         {
-                            api_request_log arl = new api_request_log();
+                            accAfpslaiEmvSrvc.EF.api_request_log arl = new accAfpslaiEmvSrvc.EF.api_request_log();
                             arl.api_owner = "cbs";
                             arl.api_name = "pullCBSData";
                             arl.is_success = false;
@@ -489,7 +489,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
                     var obj = ent.dcs_system_setting;
 
                     return apiResponse(new response { result = 0, obj = obj });
@@ -517,7 +517,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
                     var obj = ent.cps_card_elements;
 
                     return apiResponse(new response { result = 0, obj = obj });
@@ -544,7 +544,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
                     var obj = ent.system_role.Where(o => o.is_deleted == false);
 
                     return apiResponse(new response { result = 0, obj = obj });
@@ -568,7 +568,7 @@ namespace accAfpslaiEmvSrvc.Controllers
             {
                 //string payload = reqPayload.payload; 
 
-                afpslai_emvEntities ent = new afpslai_emvEntities();
+                accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
                 var obj = ent.associate_type;
 
                 return apiResponse(new response { result = 0, obj = obj.Count() });
@@ -594,7 +594,7 @@ namespace accAfpslaiEmvSrvc.Controllers
                 {
                     var payloadEnt = Newtonsoft.Json.JsonConvert.DeserializeObject<associate_type>(payload);
 
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
                     var obj = ent.associate_type.Where(o => o.is_deleted == false);
 
                     return apiResponse(new response { result = 0, obj = obj });
@@ -631,7 +631,7 @@ namespace accAfpslaiEmvSrvc.Controllers
                     if (objPayload.endDate != null) endDate = objPayload.endDate;
                     if (objPayload.branch != null) branch = objPayload.branch;
 
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
                     var b = ent.branches.Where(o => o.branchName.Equals(branch)).FirstOrDefault();
 
                     int branchId = 0;
@@ -716,7 +716,7 @@ namespace accAfpslaiEmvSrvc.Controllers
                     if (objPayload.endDate != null) endDate = objPayload.endDate;
                     if (objPayload.branch != null) branch = objPayload.branch;
 
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
                     var b = ent.branches.Where(o => o.branchName.Equals(branch)).FirstOrDefault();
 
                     //var start = startDate;
@@ -797,7 +797,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
                     var obj = ent.branches.Where(o => o.is_deleted == false);
 
                     return apiResponse(new response { result = 0, obj = obj });
@@ -824,7 +824,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
                     var obj = ent.civil_status.Where(o => o.is_deleted == false);
 
                     return apiResponse(new response { result = 0, obj = obj });
@@ -851,7 +851,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
                     var obj = ent.countries.ToList();
 
                     return apiResponse(new response { result = 0, obj = obj });
@@ -878,7 +878,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
                     var obj = ent.membership_status.Where(o => o.is_deleted == false);
 
                     return apiResponse(new response { result = 0, obj = obj });
@@ -905,7 +905,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
                     var obj = ent.membership_type.Where(o => o.is_deleted == false);
 
                     return apiResponse(new response { result = 0, obj = obj });
@@ -932,7 +932,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
                     int userId = 0;
 
                     if (payload != "")
@@ -1014,7 +1014,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
                     string userName = "";
                     string system = "";
 
@@ -1091,7 +1091,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
                     var obj = ent.print_type.Where(o => o.is_deleted == false);
 
                     return apiResponse(new response { result = 0, obj = obj });
@@ -1118,7 +1118,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
                     var obj = ent.recard_reason.Where(o => o.is_deleted == false);
 
                     return apiResponse(new response { result = 0, obj = obj });
@@ -1145,7 +1145,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     string value = objPayload.value;
@@ -1207,7 +1207,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
 
@@ -1341,7 +1341,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
 
@@ -1470,7 +1470,7 @@ namespace accAfpslaiEmvSrvc.Controllers
         //    try
         //    {
 
-        //        afpslai_emvEntities ent = new afpslai_emvEntities();
+        //        accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
         //        var members = (from m in ent.members
         //                       join c in ent.cards on m.id equals c.member_id into table1
@@ -1522,7 +1522,7 @@ namespace accAfpslaiEmvSrvc.Controllers
         //        //    case (int)System.Net.HttpStatusCode.InternalServerError:
         //        //        return apiResponse(new responseFailedSystemError());
         //        //    default:
-        //                //afpslai_emvEntities ent = new afpslai_emvEntities();
+        //                //accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
         //                //dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
 
@@ -1594,7 +1594,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
 
@@ -1756,7 +1756,7 @@ namespace accAfpslaiEmvSrvc.Controllers
         {
             try
             {
-                afpslai_emvEntities ent = new afpslai_emvEntities();
+                accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                 System.Text.StringBuilder sb = new System.Text.StringBuilder();
                 sb.Append("select c.id as cardId, m.id as memberId, m.cif, c.\"cardNo\" as cardNo, ");
@@ -1791,7 +1791,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     string value = objPayload.value;
@@ -1840,7 +1840,7 @@ namespace accAfpslaiEmvSrvc.Controllers
             {
                 //Helpers.Utilities.SavePayload(reqPayload);
 
-                afpslai_emvEntities ent = new afpslai_emvEntities();
+                accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
                 dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(reqPayload.payload);
                 var user = Newtonsoft.Json.JsonConvert.DeserializeObject<loginRequest>(objPayload.ToString());
 
@@ -1911,7 +1911,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                                 Helpers.Utilities.SaveSystemLog(reqPayload.system, systemUser[0].userId, string.Format("{0} log in ", userName));
 
-                                var userlogon = new userlogon();
+                                var userlogon = new accAfpslaiEmvSrvc.EF.userlogon();
                                 userlogon.system = reqPayload.system;
                                 userlogon.user_name = userName;
                                 Helpers.Utilities.UserLogIn(userlogon);
@@ -1963,7 +1963,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var user = Newtonsoft.Json.JsonConvert.DeserializeObject<system_user>(objPayload.ToString()); ;
@@ -2076,7 +2076,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var user = Newtonsoft.Json.JsonConvert.DeserializeObject<system_user>(objPayload.ToString());
@@ -2126,7 +2126,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<system_log>(objPayload.ToString());                    
@@ -2157,7 +2157,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
 
@@ -2225,7 +2225,7 @@ namespace accAfpslaiEmvSrvc.Controllers
         //        case (int)System.Net.HttpStatusCode.InternalServerError:
         //            return apiResponse(new responseFailedSystemError());
         //        default:
-        //            afpslai_emvEntities ent = new afpslai_emvEntities();
+        //            accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
         //            dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
         //            var online_registration = Newtonsoft.Json.JsonConvert.DeserializeObject<online_registration>(objPayload.value);
@@ -2246,11 +2246,11 @@ namespace accAfpslaiEmvSrvc.Controllers
 
         [Route("~/api/addOnlineRegistration")]
         [HttpPost]
-        public IHttpActionResult AddOnlineRegistration(online_registration online_registration)
+        public IHttpActionResult AddOnlineRegistration(accAfpslaiEmvSrvc.EF.online_registration online_registration)
         {
             try
             {
-                afpslai_emvEntities ent = new afpslai_emvEntities();
+                accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                 if (string.IsNullOrEmpty(online_registration.first_name) || string.IsNullOrEmpty(online_registration.last_name) || string.IsNullOrEmpty(online_registration.reference_number)) return apiResponse(new responseFailedBadRequest { message = "Missing required field(s)" });
 
@@ -2273,11 +2273,11 @@ namespace accAfpslaiEmvSrvc.Controllers
 
         [Route("~/api/addSystemLog")]
         [HttpPost]
-        public IHttpActionResult AddSystemLog(system_log system_log)
+        public IHttpActionResult AddSystemLog(accAfpslaiEmvSrvc.EF.system_log system_log)
         {
             try
             {
-                afpslai_emvEntities ent = new afpslai_emvEntities();
+                accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                 //if (string.IsNullOrEmpty(online_registration.first_name) || string.IsNullOrEmpty(online_registration.last_name) || string.IsNullOrEmpty(online_registration.reference_number)) return apiResponse(new responseFailedBadRequest());
 
@@ -2404,7 +2404,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var member = Newtonsoft.Json.JsonConvert.DeserializeObject<member>(objPayload.ToString());
@@ -2453,7 +2453,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var member = Newtonsoft.Json.JsonConvert.DeserializeObject<member>(objPayload.ToString());
@@ -2511,7 +2511,7 @@ namespace accAfpslaiEmvSrvc.Controllers
         //            case (int)System.Net.HttpStatusCode.InternalServerError:
         //                return apiResponse(new responseFailedSystemError());
         //            default:
-        //                afpslai_emvEntities ent = new afpslai_emvEntities();                        
+        //                accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();                        
 
         //                dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
 
@@ -2569,7 +2569,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var card = Newtonsoft.Json.JsonConvert.DeserializeObject<card>(objPayload.ToString());
@@ -2639,7 +2639,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var cancelCapture = Newtonsoft.Json.JsonConvert.DeserializeObject<cancelCapture>(objPayload.ToString()); ;
@@ -2712,7 +2712,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var address = Newtonsoft.Json.JsonConvert.DeserializeObject<address>(objPayload.ToString());
@@ -2752,7 +2752,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var role = Newtonsoft.Json.JsonConvert.DeserializeObject<system_role>(objPayload.ToString()); ;
@@ -2816,7 +2816,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var role = Newtonsoft.Json.JsonConvert.DeserializeObject<system_role>(objPayload.ToString()); ;
@@ -2860,7 +2860,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var user = Newtonsoft.Json.JsonConvert.DeserializeObject<system_user>(objPayload.ToString());
@@ -2906,7 +2906,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var assocType = Newtonsoft.Json.JsonConvert.DeserializeObject<associate_type>(objPayload.ToString());
@@ -2969,7 +2969,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var assocType = Newtonsoft.Json.JsonConvert.DeserializeObject<associate_type>(objPayload.ToString()); ;
@@ -3013,7 +3013,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var branch = Newtonsoft.Json.JsonConvert.DeserializeObject<branch>(objPayload.ToString()); ;
@@ -3077,7 +3077,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var branch = Newtonsoft.Json.JsonConvert.DeserializeObject<branch>(objPayload.ToString()); ;
@@ -3121,7 +3121,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var civilStatus = Newtonsoft.Json.JsonConvert.DeserializeObject<civil_status>(objPayload.ToString()); ;
@@ -3184,7 +3184,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var civilStatus = Newtonsoft.Json.JsonConvert.DeserializeObject<civil_status>(objPayload.ToString()); ;
@@ -3228,7 +3228,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var membershipStatus = Newtonsoft.Json.JsonConvert.DeserializeObject<membership_status>(objPayload.ToString()); ;
@@ -3291,12 +3291,12 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
                     var obj = ent.dcs_system_setting.FirstOrDefault();
 
                     if (obj == null)
                     {
-                        dcs_system_setting dss = new dcs_system_setting();
+                        accAfpslaiEmvSrvc.EF.dcs_system_setting dss = new accAfpslaiEmvSrvc.EF.dcs_system_setting();
                         dss.cif_length = 13;
                         dss.member_type_assoc_allow_yrs = 21;
                         dss.member_type_reg_allow_yrs = 15;
@@ -3352,7 +3352,7 @@ namespace accAfpslaiEmvSrvc.Controllers
                     if (string.IsNullOrEmpty(cce.element) || cce.x == null || cce.y == null || cce.width == null || cce.height == null || cce.element_type == null) return apiResponse(new responseFailedBadRequest { message = "Missing required field(s)" });
                     {
                         string element = cce.element;
-                        afpslai_emvEntities ent = new afpslai_emvEntities();
+                        accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
                         var obj = ent.cps_card_elements.Where(o => o.element.Equals(element)).FirstOrDefault();
                         if (obj == null)
                         {
@@ -3422,7 +3422,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var membershipStatus = Newtonsoft.Json.JsonConvert.DeserializeObject<membership_status>(objPayload.ToString());
@@ -3466,7 +3466,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var membershipType = Newtonsoft.Json.JsonConvert.DeserializeObject<membership_type>(objPayload.ToString()); ;
@@ -3529,7 +3529,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var membershipType = Newtonsoft.Json.JsonConvert.DeserializeObject<membership_type>(objPayload.ToString()); ;
@@ -3573,7 +3573,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var printType = Newtonsoft.Json.JsonConvert.DeserializeObject<print_type>(objPayload.ToString()); ;
@@ -3636,7 +3636,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var printType = Newtonsoft.Json.JsonConvert.DeserializeObject<print_type>(objPayload.ToString()); ;
@@ -3680,7 +3680,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var recardReason = Newtonsoft.Json.JsonConvert.DeserializeObject<recard_reason>(objPayload.ToString()); ;
@@ -3743,7 +3743,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var recardReason = Newtonsoft.Json.JsonConvert.DeserializeObject<recard_reason>(objPayload.ToString()); ;
@@ -3787,7 +3787,7 @@ namespace accAfpslaiEmvSrvc.Controllers
 
                 if (validationResponse.result == 0)
                 {                                     
-                    afpslai_emvEntities ent = new afpslai_emvEntities();
+                    accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
                     dynamic objPayload = Newtonsoft.Json.JsonConvert.DeserializeObject(payload);
                     var user = Newtonsoft.Json.JsonConvert.DeserializeObject<loginRequest>(objPayload.ToString());
                     int userId = objPayload.id;

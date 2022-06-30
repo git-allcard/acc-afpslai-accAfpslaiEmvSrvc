@@ -7,16 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace accAfpslaiEmvSrvc
+namespace accAfpslaiEmvSrvc.EF
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class associate_type
+    public partial class card
     {
         public int id { get; set; }
-        public string associateType { get; set; }
-        public Nullable<bool> is_deleted { get; set; }
-        public string cbsCode { get; set; }
+        public Nullable<int> member_id { get; set; }
+        public string cardNo { get; set; }
+        public Nullable<System.DateTime> date_CMS { get; set; }
+        public Nullable<System.DateTime> date_CBS { get; set; }
+        public Nullable<System.DateTime> date_post { get; set; }
+        public Nullable<System.TimeSpan> time_post { get; set; }
+        public Nullable<bool> is_cancel { get; set; }
     }
 }

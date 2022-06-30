@@ -7,32 +7,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace accAfpslaiEmvSrvc
+namespace accAfpslaiEmvSrvc.EF
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class online_registration
+    public partial class system_user
     {
         public int id { get; set; }
-        public string cif { get; set; }
+        public string user_name { get; set; }
+        public string user_pass { get; set; }
         public string last_name { get; set; }
         public string first_name { get; set; }
         public string middle_name { get; set; }
         public string suffix { get; set; }
-        public string gender { get; set; }
-        public Nullable<System.DateTime> date_birth { get; set; }
-        public string mobile_nos { get; set; }
-        public string email { get; set; }
-        public string cca_no { get; set; }
-        public string reference_number { get; set; }
-        public string qr_code { get; set; }
-        public string branch { get; set; }
-        public Nullable<System.DateTime> date_schedule { get; set; }
-        public string time_schedule { get; set; }
-        public Nullable<System.DateTime> date_captured { get; set; }
-        public Nullable<int> reference_id { get; set; }
+        public Nullable<int> role_id { get; set; }
+        public string status { get; set; }
+        public Nullable<bool> is_default_pass { get; set; }
+        public Nullable<bool> is_deleted { get; set; }
         public Nullable<System.DateTime> date_post { get; set; }
         public Nullable<System.TimeSpan> time_post { get; set; }
+        public Nullable<short> login_attmpt_ctr { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using System.Web;
 //using accAfpslaiEmvSrvc.Models;
 using accAfpslaiEmvObjct;
 
+
 namespace accAfpslaiEmvSrvc.Helpers
 {
     public class Utilities
@@ -49,7 +50,7 @@ namespace accAfpslaiEmvSrvc.Helpers
 
         public static void SaveSystemLog(string system, int userId, string logDesc)
         {
-            system_log log = new system_log();
+            accAfpslaiEmvSrvc.EF.system_log log = new accAfpslaiEmvSrvc.EF.system_log();
             log.system = system;
             log.log_desc = logDesc;
             log.log_type = "System";
@@ -57,18 +58,18 @@ namespace accAfpslaiEmvSrvc.Helpers
             AddSysLog(log);
         }
 
-        public static void SaveApiRequestLog(api_request_log arl)
+        public static void SaveApiRequestLog(accAfpslaiEmvSrvc.EF.api_request_log arl)
         {          
-            afpslai_emvEntities ent = new afpslai_emvEntities();
+            accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
             arl.date_post = DateTime.Now.Date;
             arl.time_post = DateTime.Now.TimeOfDay;
             ent.api_request_log.Add(arl);
             ent.SaveChanges();
         }
 
-        public static void UserLogIn(userlogon ul)
+        public static void UserLogIn(accAfpslaiEmvSrvc.EF.userlogon ul)
         {
-            afpslai_emvEntities ent = new afpslai_emvEntities();            
+            accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();            
             ul.login_date = DateTime.Now.Date;
             ul.login_time = DateTime.Now.TimeOfDay;
             ent.userlogons.Add(ul);
@@ -77,16 +78,16 @@ namespace accAfpslaiEmvSrvc.Helpers
 
         public static void UserLogOut(int id)
         {
-            afpslai_emvEntities ent = new afpslai_emvEntities();
+            accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
             var obj = ent.userlogons.Where(o => o.id == id).FirstOrDefault();
             obj.logout_date = DateTime.Now.Date;
             obj.logout_time = DateTime.Now.TimeOfDay;           
             ent.SaveChanges();
         }
 
-        public static void AddSysLog(system_log system_log)
+        public static void AddSysLog(accAfpslaiEmvSrvc.EF.system_log system_log)
         {
-            afpslai_emvEntities ent = new afpslai_emvEntities();
+            accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
             system_log.date_post = DateTime.Now.Date;
             system_log.time_post = DateTime.Now.TimeOfDay;
             ent.system_log.Add(system_log);
@@ -128,7 +129,7 @@ namespace accAfpslaiEmvSrvc.Helpers
                     {
                         if (accAfpslaiEmvEncDec.Aes256CbcEncrypter.Decrypt(payloadAuth.key) == Properties.Settings.Default.ApiAuth)
                         {
-                            afpslai_emvEntities ent = new afpslai_emvEntities();
+                            accAfpslaiEmvSrvc.EF.afpslai_emvEntities ent = new accAfpslaiEmvSrvc.EF.afpslai_emvEntities();
 
                             string userName = payloadAuth.userName;
                             string userPass = payloadAuth.userPass;

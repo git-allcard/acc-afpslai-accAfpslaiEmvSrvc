@@ -7,22 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace accAfpslaiEmvSrvc
+namespace accAfpslaiEmvSrvc.EF
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class api_request_log
+    public partial class cps_card_elements
     {
         public int id { get; set; }
-        public string api_owner { get; set; }
-        public string api_name { get; set; }
-        public Nullable<int> member_id { get; set; }
-        public Nullable<int> card_id { get; set; }
-        public string request { get; set; }
-        public string response { get; set; }
-        public Nullable<bool> is_success { get; set; }
+        public string element { get; set; }
+        public Nullable<int> x { get; set; }
+        public Nullable<int> y { get; set; }
+        public Nullable<int> width { get; set; }
+        public Nullable<int> height { get; set; }
+        public string font_name { get; set; }
+        public Nullable<int> font_size { get; set; }
+        public Nullable<int> font_style { get; set; }
+        public string element_type { get; set; }
         public Nullable<System.DateTime> date_post { get; set; }
         public Nullable<System.TimeSpan> time_post { get; set; }
+        public Nullable<System.DateTime> last_updated { get; set; }
     }
 }

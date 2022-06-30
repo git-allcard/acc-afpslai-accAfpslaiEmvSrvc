@@ -7,19 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace accAfpslaiEmvSrvc
+namespace accAfpslaiEmvSrvc.EF
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class userlogon
+    public partial class system_log
     {
         public int id { get; set; }
-        public string user_name { get; set; }
-        public Nullable<System.DateTime> login_date { get; set; }
-        public Nullable<System.TimeSpan> login_time { get; set; }
-        public Nullable<System.DateTime> logout_date { get; set; }
-        public Nullable<System.TimeSpan> logout_time { get; set; }
         public string system { get; set; }
+        public string log_desc { get; set; }
+        public string log_type { get; set; }
+        public Nullable<int> user_id { get; set; }
+        public Nullable<System.DateTime> date_post { get; set; }
+        public Nullable<System.TimeSpan> time_post { get; set; }
     }
 }
